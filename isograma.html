@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>isograma</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="estilo.css">
+	<script type="text/javascript">
+		let isograma = (n) => {
+			//Isograma é uma palavra que não repete as letras.
+			return (new Set(n).size == n.length);
+		}
+
+		window.onload = () => {
+			let frm = document.getElementById('form1');
+			frm.addEventListener('submit', (evt) => {
+				evt.preventDefault();
+				let nome = frm.nome.value;
+				if (nome.length > 0){
+					if (isograma(nome)){
+						document.getElementById('resultado').innerHTML = nome +' é isograma';
+					}
+					else{
+						document.getElementById('resultado').innerHTML = nome +' não é isograma';
+					}
+				}
+			});
+		}
+	</script>
+</head>
+<body>
+
+	<h1>verifique se uma palavra é um isograma</h1>
+	<form id="form1">
+		<input type="text" id="nome" placeholder="palavra" autocomplete="off" required="">
+		<button type="submit">verificar</button>
+	</form>
+	<h1 id="resultado"></h1>
+	<br><br>
+	<h1>Função Isograma</h1>
+	<img src="isograma.png">
+	<footer>
+		Desenvolvido por: Gustavo Morini - Leonardo Morini
+	</footer>
+</body>
+</html>

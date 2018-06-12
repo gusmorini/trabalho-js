@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calculo Combustível</title>
+	<meta charset="utf-8">
+	
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="estilo.css">
+	<script type="text/javascript">
+
+	window.onload = () =>{
+
+		let valorEta = (dados) => {
+			return new Promise((resolve, reject) => {
+				let etanol = frm.eta.value;
+				etanol = etanol.replace(',','.');
+				dados.etanol = etanol;
+				resolve(dados);
+			});
+		}			
+
+		let valorGas = (dados) => {
+			return new Promise((resolve, reject) => {
+				let gasolina = frm.gas.value;
+				gasolina = gasolina.replace(',','.');
+				dados.gasolina = gasolina
+				resolve(dados)
+			});
+		}
+
+		let pegarValores = () => {
+			return Promise.resolve({ })
+			.then(valorEta)
+			.then(valorGas)
+			.then((result) => {
+				return result;
+			});
+		}
+
+		let calcular = (dados) => {
+			dados.calculo = dados.etanol / dados.gasolina;
+			console.log(dados.calculo);
+			return dados;
+		}
+
+		let resultado = (dados) => {
+			if (dados.calculo > 0.7){
+				dados.resultado = 'gasolina';
+			}else{
+				dados.resultado = 'etanol';
+			}
+			return (dados);
+		}
+
+		let mostrar = (dados) => {
+			document.getElementById('resultado').innerHTML = `Abasteça com ${dados.resultado}`;
+			return dados;
+		}			
+
+		let frm = document.getElementById('form1');
+
+		frm.addEventListener('submit', (evt) => {
+			evt.preventDefault();
+
+			pegarValores()
+			.then(calcular)
+			.then(resultado)
+			.then(mostrar);
+						
+		});
+
+	}
+
+
+	</script>
+</head>
+<body>
+
+	<form id="form1" autocomplete="off">
+		<label>Etanol R$</label>
+		<input type="text" id="eta" required="">
+		<label>Gasolina R$</label>
+		<input type="text" id="gas" required="">
+		<button type="submit">calcular</button>
+	</form>
+
+	<h1 id="resultado"></h1>
+	<br><br>
+	<h1>Promisses combustível</h1>
+	<img src="combustivel.png">
+	<footer>
+		Desenvolvido por: Gustavo Morini - Leonardo Morini
+	</footer>
+</body>
+</html>
