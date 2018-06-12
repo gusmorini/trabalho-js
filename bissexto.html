@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ano Bissexto</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="estilo.css">
+	<script type="text/javascript">
+		window.onload = () => {
+			let bissexto = (n) => {
+				//Obs: um ano é bissexto se ele for divisível por 400 ou se ele for divisível por 4 e não por 100.
+				let ano = n;
+				if (ano % 400 == 0){
+					return true;
+				}
+				else if ((ano % 4 == 0) && (ano % 100 != 0)){
+					return true;
+				}else{
+					return false;
+				}
+			}// função bissexto
+
+			let frm = document.getElementById('form1');
+			frm.addEventListener('submit', (evt)=>{
+				evt.preventDefault();
+				ano = frm.inputAno.value;
+				if (ano.length != 4){
+					document.getElementById('resultado').innerHTML = 'entre com um ano válido';
+				}else{
+
+					if (bissexto(ano)){
+						document.getElementById('resultado').innerHTML = ano +' é bissexto';
+					}else{
+						document.getElementById('resultado').innerHTML = ano +' não é bissexto';
+					}
+				}
+			});
+		}
+	</script>
+</head>
+<body>
+
+<h2>Verifique se o ano é bissexto</h2>
+<form id="form1">
+	<input type="number" id="inputAno" autocomplete="off" placeholder="0000" required="">
+	<button type="submit">verificar </button>
+</form>
+
+<h1 id="resultado"></h1>
+<br><br>
+<h1>Função ano bissexto</h1>
+<img src="bissexto.png">
+<footer>
+	Desenvolvido por: Gustavo Morini - Leonardo Morini
+</footer>
+
+</body>
+</html>
